@@ -1,23 +1,23 @@
 # Poigno-VPN
 
-Poigno-VPN is a learning project to build a personal VPN setup with an emphasis on privacy, transparent configuration, and careful testing.
+Poigno-VPN est un projet d'apprentissage visant à créer une solution VPN personnelle, avec une attention particulière portée à la confidentialité, à la transparence de la configuration et aux tests.
 
-## Important status
+## État du projet
 
-This repository is at the initial development stage. It does **not** currently provide a working VPN tunnel, a VPN server, or automatic public-IP rotation.
+Le dépôt est au début de son développement. Il ne fournit **pas encore** de tunnel VPN fonctionnel, de serveur VPN ni de rotation automatique de l'adresse IP publique.
 
-The first goal is to build and validate the project tooling. A real tunnel will require a supported host that can accept WireGuard UDP traffic. Render Free Web Services are designed for public HTTP services and do not expose a general public UDP port, so they are not a suitable WireGuard endpoint. See the [Render Web Services documentation](https://render.com/docs/web-services).
+La première étape consiste à créer et valider les outils du projet. Un véritable tunnel nécessitera un hébergeur compatible avec le trafic UDP de WireGuard. Les services Web gratuits de Render sont conçus pour exposer des services HTTP et ne proposent pas de port UDP public général : ils ne conviennent donc pas comme point d'entrée WireGuard classique. Voir la [documentation Render sur les services Web](https://render.com/docs/web-services).
 
-## Project principles
+## Principes du projet
 
-- Use established VPN technology such as WireGuard rather than inventing cryptography.
-- Never commit private keys, client configuration files, or credentials.
-- Keep the setup free to develop and test where possible.
-- Be explicit about what is and is not running.
-- Treat IP rotation as a separate feature: reconnecting to the same VPN endpoint does not inherently change its public exit IP.
+- Utiliser une technologie VPN éprouvée comme WireGuard, sans réinventer la cryptographie.
+- Ne jamais publier de clés privées, de fichiers de configuration client ou d'identifiants.
+- Développer et tester gratuitement autant que possible.
+- Indiquer clairement ce qui fonctionne et ce qui ne fonctionne pas encore.
+- Traiter la rotation d'IP comme une fonctionnalité séparée : se reconnecter au même serveur VPN ne change pas automatiquement son IP publique de sortie.
 
-## Development
+## Développement
 
-The initial tools are small diagnostics that can be run locally or in a CI workflow. They do not create a VPN tunnel.
+Les premiers outils sont de simples diagnostics exécutables localement ou dans une tâche d'intégration continue. Ils ne créent pas de tunnel VPN.
 
-See [the architecture notes](docs/ARCHITECTURE.md) for the current plan and hosting constraints.
+Consultez [les notes d'architecture](docs/ARCHITECTURE.md) pour connaître le plan actuel et les contraintes d'hébergement.
