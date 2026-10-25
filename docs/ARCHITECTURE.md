@@ -1,33 +1,33 @@
-# Architecture and development plan
+# Architecture et plan de développement
 
-## Current milestone: repository foundation
+## Étape actuelle : base du dépôt
 
-The first milestone is documentation and basic diagnostics. It is not a VPN implementation.
+La première étape porte sur la documentation et les diagnostics de base. Il ne s'agit pas encore d'une implémentation VPN.
 
-## Intended components
+## Composants prévus
 
-1. **Client configuration** — use WireGuard's established format and tools; do not implement cryptography ourselves.
-2. **Server endpoint** — must be a host that accepts public UDP traffic and permits VPN use.
-3. **IP verification** — compare the public egress IP before and after connecting to the tunnel.
-4. **Rotation policy** — select among multiple legitimate exit endpoints, or use a host with a documented address-rotation feature. A reconnect to one endpoint alone does not guarantee a new public IP.
-5. **Secret handling** — private keys and full client configs stay out of Git. Use local secret storage or CI secrets only when needed.
+1. **Configuration cliente** — utiliser le format et les outils éprouvés de WireGuard, sans développer notre propre cryptographie.
+2. **Point d'entrée serveur** — utiliser un hébergeur qui accepte le trafic UDP public et autorise l'usage d'un VPN.
+3. **Vérification de l'IP** — comparer l'adresse IP publique de sortie avant et après la connexion au tunnel.
+4. **Politique de rotation** — choisir entre plusieurs points de sortie légitimes, ou utiliser un hébergeur proposant une rotation d'adresse documentée. Une reconnexion au même point d'entrée ne garantit pas une nouvelle IP publique.
+5. **Gestion des secrets** — garder les clés privées et les configurations client complètes hors de Git. Utiliser un stockage local sécurisé ou des secrets CI si nécessaire.
 
-## Free-hosting constraints
+## Contraintes d'hébergement gratuit
 
-- Render Web Services forward public traffic to one HTTP port. That model is not a general public UDP listener for WireGuard.
-- Render Free services can sleep while idle and may restart. They are useful for a web dashboard or development API, not a dependable always-on VPN endpoint.
-- GitHub Actions is for automated build and test jobs, not a permanent VPN server.
+- Les services Web Render transmettent le trafic public vers un port HTTP. Ce fonctionnement ne fournit pas un point d'écoute UDP public général pour WireGuard.
+- Les services Render gratuits peuvent se mettre en veille lorsqu'ils sont inactifs et peuvent redémarrer. Ils peuvent convenir à un tableau de bord Web ou à une API de développement, mais pas à un serveur VPN permanent fiable.
+- GitHub Actions sert à automatiser les tâches de compilation et de test, pas à héberger un serveur VPN permanent.
 
-## Validation checklist
+## Liste de validation
 
-- [ ] Confirm a host explicitly supports WireGuard UDP traffic.
-- [ ] Generate keys with WireGuard's own tools on the client and server.
-- [ ] Keep private keys out of repository files, logs, screenshots, and issue reports.
-- [ ] Confirm the tunnel handshake succeeds.
-- [ ] Confirm public IP and DNS behavior while connected.
-- [ ] Test what happens when the endpoint is unavailable.
-- [ ] Document any free-tier limits and whether the egress IP is static or can change.
+- [ ] Vérifier que l'hébergeur prend explicitement en charge le trafic UDP WireGuard.
+- [ ] Générer les clés avec les outils WireGuard sur le client et le serveur.
+- [ ] Ne pas publier les clés privées dans le dépôt, les journaux, les captures d'écran ou les rapports de problème.
+- [ ] Confirmer que la négociation du tunnel fonctionne.
+- [ ] Vérifier l'adresse IP publique et le comportement DNS une fois connecté.
+- [ ] Tester le comportement lorsque le serveur est indisponible.
+- [ ] Documenter les limites de l'offre gratuite et préciser si l'IP de sortie est fixe ou peut changer.
 
-## No false claims
+## Transparence sur l'état réel
 
-A successful build, deployment, health check, or IP-check request is not proof that a VPN tunnel works. The project must report each status separately.
+Une compilation réussie, un déploiement, une vérification de disponibilité ou une requête de contrôle d'IP ne prouvent pas qu'un tunnel VPN fonctionne. Le projet doit présenter ces états séparément.
